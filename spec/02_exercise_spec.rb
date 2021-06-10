@@ -56,7 +56,7 @@ RSpec.describe "Exercise - Many to Many - User <=> Tweet through likes" do
         Like.class_variable_set("@@all", [])
       end
       describe ".all" do 
-        it "returns an array containing all Tweet objects" do 
+        it "returns an array containing all Like objects" do 
           [like1, like2]
           expect(Like.all).to include(like1, like2)
           expect(Like.all).to eq(Like.class_variable_get("@@all"))

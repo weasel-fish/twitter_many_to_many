@@ -20,4 +20,11 @@ class Tweet
     Tweet.all.delete(self) 
   end
 
+  def likes 
+    Like.all.select { |like| like.tweet == self }
+  end
+
+  def likers 
+    likes.map { |like| like.user }
+  end
 end
