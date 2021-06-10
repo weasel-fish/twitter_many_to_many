@@ -12,7 +12,6 @@ RSpec.describe "Aquarium has many fish through exhibits" do
   describe "Aquarium" do 
     describe ".all" do 
       it "returns an array of all aquariums" do 
-        aquarium
         expect(Aquarium.all).to include(aquarium)
       end
     end
@@ -24,9 +23,10 @@ RSpec.describe "Aquarium has many fish through exhibits" do
     end
     describe "#exhibits" do 
       it "(has many exhibits) returns an array of Exhibit objects" do 
-        [aquarium, coral_reefs_exhibit, shark_lagoon_exhibit]
-        expect(aquarium.exhibits).to include(coral_reefs_exhibit)
-        expect(aquarium.exhibits).to include(shark_lagoon_exhibit)
+        exhibits = [coral_reefs_exhibit, shark_lagoon_exhibit]
+        exhibits.each do |exhibit| 
+          expect(aquarium.exhibits).to include(exhibit)
+        end
       end
     end
   end
@@ -116,23 +116,25 @@ RSpec.describe "Many to Many Doctor <=> Patient through appointments" do
         end
       end
     end
+
+    describe "Appointment" do 
+      describe ".all" do 
+        it "returns an array of all appointments created" do
+          appointment
+          expect(Appointment.all).to include(appointment)
+        end
+      end
+
+      describe "#initialize" do
+        it "takes a time, doctor and patient as arguments and stores the appointment in @@all" do 
+          expect { appointment }.not_to raise_error
+          expect(Appointment.class_variable_get("@@all")).to include(appointment)
+        end
+      end
+    end
   end
   
-  describe "Appointment" do 
-    describe ".all" do 
-      it "returns an array of all appointments created" do
-        appointment
-        expect(Appointment.all).to include(appointment)
-      end
-    end
-
-    describe "#initialize" do
-      it "takes a time, doctor and patient as arguments and stores the appointment in @@all" do 
-        expect { appointment }.not_to raise_error
-        expect(Appointment.class_variable_get("@@all")).to include(appointment)
-      end
-    end
-  end
+  
 
   describe "Associations" do 
     describe "Appointment" do 

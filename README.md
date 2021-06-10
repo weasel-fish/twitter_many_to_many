@@ -13,6 +13,26 @@ For our examples, we'll be demonstrating:
 1. how to implement a has_many, through relationship with a domain of `Aquarium`, `Exhibit` & `Fish`.
 2. how to implement a many-to-many relationship with a domain of `Doctor`, `Appointment` & `Patient`.
 
+### How to think about object relationships:
+
+Post <=> Comments
+- Comment belongs_to post => comments have a method called `#post` that returns the post the comment belongs to.
+- Post has_many comments => posts have a method called `#comments` that returns a collection (array) of comments that belong to the post.
+
+
+Many to Many 
+-- Doctor <=> Appointment <=> Patient --
+doctor has_many appointments 
+doctor has_many patients, through appointments
+appointment belongs_to doctor
+appointment belong_to patient
+patient has_many appointments
+patient has_many doctors, through appointments
+
+The model in between two models related in a many-to-many way, is called a join model. Each instance of the join model makes a connection between one instance of each other of the other models. 
+
+Join belongs to both other models, each other model has_many of the join and many of the other through the join.
+
 ## Exercise
 
 You can run the tests for the exercise with the following command:
