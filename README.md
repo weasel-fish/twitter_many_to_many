@@ -7,6 +7,12 @@
 
 How to follow along. We'll be reading through the specs as we write some code and test out the behavior. The `01_examples_spec.rb` file contains the rspec code we'll be running as we demonstrate what we know about relationships so far. The `02_exercise_spec.rb` file contains the rspec code you'll use when you work together to complete the many to many relationship between users and tweets in our twitter domain.
 
+## Examples
+
+For our examples, we'll be demonstrating:
+1. how to implement a has_many, through relationship with a domain of `Aquarium`, `Exhibit` & `Fish`.
+2. how to implement a many-to-many relationship with a domain of `Doctor`, `Appointment` & `Patient`.
+
 ## Exercise
 
 You can run the tests for the exercise with the following command:
