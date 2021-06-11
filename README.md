@@ -13,6 +13,8 @@ For our examples, we'll be demonstrating:
 1. how to implement a has_many, through relationship with a domain of `Aquarium`, `Exhibit` & `Fish`.
 2. how to implement a many-to-many relationship with a domain of `Doctor`, `Appointment` & `Patient`.
 
+![Has Many Through Diagram](has_many_through_diagram.drawio.png)
+
 ## Exercise
 
 You can run the tests for the exercise with the following command:
