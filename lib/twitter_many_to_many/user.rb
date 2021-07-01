@@ -1,12 +1,14 @@
 class User 
+
   @@all = []
 
   def self.all 
     @@all 
   end
+
   attr_reader :username
-  def initialize(username)
-    @username = username
+  def initialize(attributes = {})
+    @username = attributes[:username]
     @@all << self
   end
 
@@ -15,7 +17,15 @@ class User
   end
 
   def tweets
-    Tweet.all.select { |tweet| tweet.user == self}
+    Tweet.all.select { |tweet| tweet.user == self }
+  end
+
+  def likes 
+    Like.all.select { |like| like.user == self }
+  end
+
+  def liked_tweets
+    likes.map { |like| like.tweet }
   end
 
 end

@@ -1,11 +1,11 @@
 RSpec.describe "Exercise - Many to Many - User <=> Tweet through likes" do 
-  let(:user1) { User.new("Dakota") } 
-  let(:user2) { User.new("Sandra") }
-  let(:tweet1) { Tweet.new("I can show you the world", user1)}
-  let(:tweet2) { Tweet.new("Shining, shimmering, splendid!", user2) }
-  let(:tweet3) { Tweet.new("I look down at my phone for 1 minute and American Idol's winner is spoiled #frustrated", user2)}
-  let(:like1) { Like.new(tweet1, user2) }
-  let(:like2) { Like.new(tweet2, user1) }
+  let(:user1) { User.new(username: "Dakota") } 
+  let(:user2) { User.new(username: "Sandra") }
+  let(:tweet1) { Tweet.new(message: "I can show you the world", user: user1)}
+  let(:tweet2) { Tweet.new(message: "Shining, shimmering, splendid!", user: user2) }
+  let(:tweet3) { Tweet.new(message: "I look down at my phone for 1 minute and American Idol's winner is spoiled #frustrated", user: user2)}
+  let(:like1) { Like.new(tweet: tweet1, user: user2) }
+  let(:like2) { Like.new(tweet: tweet2, user: user1) }
 
   describe "Basics" do 
     describe "User" do 
@@ -21,7 +21,7 @@ RSpec.describe "Exercise - Many to Many - User <=> Tweet through likes" do
       end
 
       describe "#initialize" do 
-        it "takes a username as an argument and adds the user to @@all" do 
+        it "takes a hash of attributes as an argument, including a username, and adds the user to @@all" do 
           expect { user1 }.not_to raise_error
           expect(user1.instance_variable_get("@username")).to eq("Dakota")
           expect(User.all).to include(user1)
@@ -42,7 +42,7 @@ RSpec.describe "Exercise - Many to Many - User <=> Tweet through likes" do
       end
 
       describe "#initialize" do 
-        it "takes a message and a user as arguments and adds the tweet to @@all" do 
+        it "takes a hash of attributes as an argument, including a message and a user, and adds the tweet to @@all" do 
           expect { tweet1 }.not_to raise_error
           expect(tweet1.instance_variable_get("@message")).to eq("I can show you the world")
           expect(tweet1.instance_variable_get("@user")).to eq(user1)
@@ -64,7 +64,7 @@ RSpec.describe "Exercise - Many to Many - User <=> Tweet through likes" do
       end
 
       describe "#initialize" do 
-        it "takes a tweet and a user as arguments and adds the like to @@all" do 
+        it "takes a hash of attributes as an argumet, including a tweet and a user, and adds the like to @@all" do 
           expect { like1 }.not_to raise_error
           expect(like1.instance_variable_get("@tweet")).to eq(tweet1)
           expect(like1.instance_variable_get("@user")).to eq(user2)
@@ -83,13 +83,13 @@ RSpec.describe "Exercise - Many to Many - User <=> Tweet through likes" do
     end
 
     describe "Like" do 
-      describe "#tweet (belongs to)" do 
+      describe "#tweet (belongs_to)" do 
         it "returns the tweet this like belongs to" do 
           expect(like1.tweet).to eq(tweet1)
         end
       end
 
-      describe "#user (belongs to)" do 
+      describe "#user (belongs_to)" do 
         it "returns the user this like belongs to" do 
           expect(like1.user).to eq(user2)
         end

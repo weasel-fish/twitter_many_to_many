@@ -1,14 +1,14 @@
 # We can build more complicated relationships using one to many more than once. 
 RSpec.describe "Aquarium has many fish through exhibits" do 
-  let(:aquarium) { Aquarium.new("Aquarium of the Pacific")}
-  let(:coral_reefs_exhibit) { Exhibit.new("Coral Reefs: Nature's Underwater Cities", aquarium)}
-  let(:shark_lagoon_exhibit) { Exhibit.new("Shark Lagoon", aquarium)}
-  let(:glowing_reef) { Fish.new("Deep Reef", coral_reefs_exhibit)}
-  let(:deep_reef) { Fish.new("Deep Reef", coral_reefs_exhibit)}
-  let(:clownfish) { Fish.new("Clownfish", coral_reefs_exhibit)}
-  let(:zebra_shark) { Fish.new("Zebra Shark", shark_lagoon_exhibit)}
-  let(:grey_reef_shark) {Fish.new("Grey Reef Shark",shark_lagoon_exhibit)}
-  let(:epaulette_shark){ Fish.new("Epaulette Shark", shark_lagoon_exhibit)}
+  let(:aquarium) { Aquarium.new(name: "Aquarium of the Pacific")}
+  let(:coral_reefs_exhibit) { Exhibit.new(name: "Coral Reefs: Nature's Underwater Cities", aquarium: aquarium)}
+  let(:shark_lagoon_exhibit) { Exhibit.new(name: "Shark Lagoon", aquarium: aquarium)}
+  let(:glowing_reef) { Fish.new(name: "Deep Reef", exhibit: coral_reefs_exhibit)}
+  let(:deep_reef) { Fish.new(name: "Deep Reef", exhibit: coral_reefs_exhibit)}
+  let(:clownfish) { Fish.new(name: "Clownfish", exhibit: coral_reefs_exhibit)}
+  let(:zebra_shark) { Fish.new(name: "Zebra Shark", exhibit: shark_lagoon_exhibit)}
+  let(:grey_reef_shark) {Fish.new(name: "Grey Reef Shark",exhibit: shark_lagoon_exhibit)}
+  let(:epaulette_shark){ Fish.new(name: "Epaulette Shark", exhibit: shark_lagoon_exhibit)}
   describe "Aquarium" do 
     describe ".all" do 
       it "returns an array of all aquariums" do 
@@ -17,7 +17,7 @@ RSpec.describe "Aquarium has many fish through exhibits" do
       end
     end
     describe "#initialize" do 
-      it "accepts a name as an argument and saves the aquarium to @@all" do 
+      it "accepts a hash of attributes as an argument, including a name, and saves the aquarium to @@all" do 
         expect { aquarium }.not_to raise_error
         expect(Aquarium.class_variable_get("@@all")).to include(aquarium)
       end
@@ -40,7 +40,7 @@ RSpec.describe "Aquarium has many fish through exhibits" do
     end
 
     describe "#initialize" do 
-      it "accepts a name and an aquarium as arguments and saves the exhibit to @@all" do 
+      it "accepts a hash of attributes as an argument, including a name and an aquarium, and saves the exhibit to @@all" do 
         expect { coral_reefs_exhibit }.not_to raise_error
         expect(Exhibit.class_variable_get("@@all")).to include(coral_reefs_exhibit)
       end
@@ -63,7 +63,7 @@ RSpec.describe "Aquarium has many fish through exhibits" do
     end
 
     describe "#initialize" do
-      it "accepts a name and an exhibit as arguments and saves the fish to @@all" do 
+      it "accepts a hash of attributes as an argument, including a name and an exhibit, and saves the fish to @@all" do 
         expect { grey_reef_shark }.not_to raise_error
         expect(Fish.class_variable_get("@@all")).to include(grey_reef_shark)
       end
@@ -81,9 +81,9 @@ RSpec.describe "Aquarium has many fish through exhibits" do
 end
 
 RSpec.describe "Many to Many Doctor <=> Patient through appointments" do
-  let(:drew) { Doctor.new("Dr. Drew") }
-  let(:amy) { Patient.new("Amy Adams") }
-  let(:appointment) { Appointment.new("2PM", drew, amy)}
+  let(:drew) { Doctor.new(name: "Dr. Drew") }
+  let(:amy) { Patient.new(name: "Amy Adams") }
+  let(:appointment) { Appointment.new(time: "2PM", doctor: drew, patient: amy)}
   describe "Basics" do 
     describe "Doctor" do 
       describe ".all" do 
@@ -94,7 +94,7 @@ RSpec.describe "Many to Many Doctor <=> Patient through appointments" do
       end
   
       describe "#initialize" do
-        it "accepts a name as an argument and stores the doctor in @@all" do 
+        it "accepts a hash of attributes as an argument, including a name, and stores the doctor in @@all" do 
           expect{ drew }.not_to raise_error
           expect(Doctor.class_variable_get("@@all")).to include(drew)
         end
@@ -110,7 +110,7 @@ RSpec.describe "Many to Many Doctor <=> Patient through appointments" do
       end
   
       describe "#initialize" do
-        it "accepts a name as an argument and stores the patient in @@all" do 
+        it "accepts a hash of attributes as an argument, including a name, and stores the patient in @@all" do 
           expect { amy }.not_to raise_error
           expect(Patient.class_variable_get("@@all")).to include(amy)
         end
@@ -127,7 +127,7 @@ RSpec.describe "Many to Many Doctor <=> Patient through appointments" do
     end
 
     describe "#initialize" do
-      it "takes a time, doctor and patient as arguments and stores the appointment in @@all" do 
+      it "takes a hash of attributes as an argument, including a time, doctor and patient, and stores the appointment in @@all" do 
         expect { appointment }.not_to raise_error
         expect(Appointment.class_variable_get("@@all")).to include(appointment)
       end
